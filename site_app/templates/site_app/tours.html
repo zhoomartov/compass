@@ -1,0 +1,699 @@
+{% extends 'site_app/base.html' %}
+{% load static %}
+
+{% block title %}Туры - Compass Travel{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* tours.css - СОВРЕМЕННЫЙ ДИЗАЙН СПИСКА ТУРОВ */
+
+/* ===== VARIABLES ===== */
+:root {
+    --tour-blue: #2563eb;
+    --tour-orange: #f97316;
+    --tour-dark: #1e293b;
+    --tour-light: #64748b;
+    --tour-bg: #f8fafc;
+}
+
+/* ===== HEADER ===== */
+.page-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #f97316 100%);
+    padding: 120px 0 80px;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.2) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.page-title {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #ffffff, #f0f9ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-subtitle {
+    font-size: 1.5rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== FILTERS SECTION ===== */
+.filters-section {
+    padding: 3rem 0;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.filters-form {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.filters-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.filter-group label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--tour-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-input,
+.filter-select {
+    padding: 1rem 1.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: white;
+    transition: all 0.3s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.5rem center;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+.filter-select {
+    min-height: 54px;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+    outline: none;
+    border-color: var(--tour-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.filters-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    background: linear-gradient(90deg, var(--tour-blue), #3b82f6);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn:hover {
+    background: linear-gradient(90deg, #1e40af, var(--tour-blue));
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--tour-blue);
+    border: 2px solid var(--tour-blue);
+}
+
+.btn-outline:hover {
+    background: var(--tour-blue);
+    color: white;
+}
+
+/* ===== TOURS GRID ===== */
+.section {
+    padding: 4rem 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.tours-count {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(249, 115, 22, 0.1));
+    border-radius: 15px;
+    border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.tours-count p {
+    margin: 0;
+    font-size: 1.125rem;
+    color: var(--tour-dark);
+}
+
+.tours-count strong {
+    color: var(--tour-blue);
+    font-weight: 800;
+}
+
+.tours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2.5rem;
+}
+
+/* Tour Card */
+.tour-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border: 1px solid rgba(226, 232, 240, 0.5);
+    height: 100%;
+}
+
+.tour-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--tour-blue), var(--tour-orange));
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tour-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(37, 99, 235, 0.15);
+}
+
+.tour-card:hover::before {
+    opacity: 1;
+}
+
+/* Card Image */
+.tour-card-image {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+}
+
+.tour-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tour-card:hover .tour-card-image img {
+    transform: scale(1.15);
+}
+
+.tour-card-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--tour-blue), var(--tour-orange));
+    font-size: 80px;
+    color: white;
+}
+
+.tour-card-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 800;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.tour-card-badge:not(.featured) {
+    background: linear-gradient(135deg, var(--tour-orange), #ea580c);
+    color: white;
+}
+
+.tour-card-badge.featured {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    animation: pulse 2s infinite;
+}
+
+/* Card Content */
+.tour-card-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 240px);
+}
+
+.tour-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tour-card-location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--tour-light);
+    font-weight: 600;
+}
+
+.tour-card-location::before {
+    content: '📍';
+    font-size: 1rem;
+}
+
+.tour-card-difficulty {
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tour-difficulty-easy {
+    background-color: #dcfce7;
+    color: #166534;
+    border: 2px solid #86efac;
+}
+
+.tour-difficulty-moderate {
+    background-color: #fef3c7;
+    color: #92400e;
+    border: 2px solid #fbbf24;
+}
+
+.tour-difficulty-hard {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 2px solid #f87171;
+}
+
+.tour-card-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--tour-dark);
+    line-height: 1.3;
+    flex-grow: 0;
+}
+
+.tour-card-description {
+    color: var(--tour-light);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.tour-card-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 15px;
+}
+
+.tour-info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--tour-dark);
+    font-weight: 600;
+}
+
+.info-icon {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.tour-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f1f5f9;
+    margin-top: auto;
+}
+
+.tour-card-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.price-label {
+    font-size: 0.875rem;
+    color: var(--tour-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--tour-blue);
+    line-height: 1;
+}
+
+.price-person {
+    font-size: 0.875rem;
+    color: var(--tour-light);
+    margin-left: 0.25rem;
+}
+
+.btn-small {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 5rem 2rem;
+    background: #f8fafc;
+    border-radius: 24px;
+    border: 3px dashed #cbd5e1;
+}
+
+.empty-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--tour-dark);
+}
+
+.empty-state p {
+    color: var(--tour-light);
+    margin-bottom: 2rem;
+    font-size: 1.125rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+    }
+    50% {
+        box-shadow: 0 8px 30px rgba(245, 158, 11, 0.6);
+    }
+    100% {
+        box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+    .tours-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .filters-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.5rem;
+    }
+
+    .page-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .filters-section {
+        position: static;
+    }
+
+    .filters-row {
+        grid-template-columns: 1fr;
+    }
+
+    .tours-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .tour-card-image {
+        height: 220px;
+    }
+
+    .tour-card-content {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .filters-actions {
+        flex-direction: column;
+    }
+
+    .filters-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .tour-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .tour-card-footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: stretch;
+    }
+
+    .tour-card-price {
+        justify-content: center;
+    }
+
+    .btn-small {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .empty-state h3 {
+        font-size: 1.5rem;
+    }
+
+    .empty-state p {
+        font-size: 1rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="page-header-overlay"></div>
+    <div class="container">
+        <h1 class="page-title">Наши туры</h1>
+        <p class="page-subtitle">Выберите идеальное приключение</p>
+    </div>
+</section>
+
+<!-- Filters Section -->
+<section class="filters-section">
+    <div class="container">
+        <form method="get" class="filters-form" id="filtersForm">
+            <div class="filters-row">
+                <div class="filter-group">
+                    <label>Поиск</label>
+                    <input 
+                        type="text" 
+                        name="search" 
+                        class="filter-input" 
+                        placeholder="Название тура..." 
+                        value="{{ search_query }}"
+                    >
+                </div>
+                
+                <div class="filter-group">
+                    <label>Направление</label>
+                    <select name="destination" class="filter-select">
+                        <option value="">Все направления</option>
+                        {% for dest in destinations %}
+                        <option value="{{ dest.id }}" {% if selected_destination == dest.id|stringformat:"s" %}selected{% endif %}>
+                            {{ dest.name }}, {{ dest.country }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Сложность</label>
+                    <select name="difficulty" class="filter-select">
+                        <option value="">Любая</option>
+                        <option value="easy" {% if selected_difficulty == 'easy' %}selected{% endif %}>Легкая</option>
+                        <option value="moderate" {% if selected_difficulty == 'moderate' %}selected{% endif %}>Средняя</option>
+                        <option value="hard" {% if selected_difficulty == 'hard' %}selected{% endif %}>Сложная</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Сортировка</label>
+                    <select name="sort" class="filter-select">
+                        <option value="featured" {% if sort_by == 'featured' %}selected{% endif %}>Рекомендуемые</option>
+                        <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>Цена: низкая → высокая</option>
+                        <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>Цена: высокая → низкая</option>
+                        <option value="duration" {% if sort_by == 'duration' %}selected{% endif %}>Продолжительность</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="filters-actions">
+                <button type="submit" class="btn btn-primary">Применить фильтры</button>
+                <a href="{% url 'tours' %}" class="btn btn-outline">Сбросить</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Tours Grid -->
+<section class="section">
+    <div class="container">
+        <div class="tours-count">
+            <p>Найдено туров: <strong>{{ tours.count }}</strong></p>
+        </div>
+        
+        <div class="tours-grid">
+            {% for tour in tours %}
+            <div class="tour-card" data-tour-id="{{ tour.id }}">
+                <div class="tour-card-image">
+                    {% if tour.image_url %}
+                    <img src="{{ tour.image_url }}" alt="{{ tour.title }}" loading="lazy">
+                    {% else %}
+                    <div class="tour-card-placeholder">🏔️</div>
+                    {% endif %}
+                    {% if tour.featured %}
+                    <div class="tour-card-badge featured">⭐ Рекомендуем</div>
+                    {% else %}
+                    <div class="tour-card-badge">{{ tour.duration_days }} дней</div>
+                    {% endif %}
+                </div>
+                <div class="tour-card-content">
+                    <div class="tour-card-header">
+                        <span class="tour-card-location">📍 {{ tour.destination }}</span>
+                        <span class="tour-card-difficulty tour-difficulty-{{ tour.difficulty }}">
+                            {{ tour.get_difficulty_display }}
+                        </span>
+                    </div>
+                    <h3 class="tour-card-title">{{ tour.title }}</h3>
+                    <p class="tour-card-description">{{ tour.description|truncatewords:20 }}</p>
+                    <div class="tour-card-info">
+                        <div class="tour-info-item">
+                            <span class="info-icon">⏱️</span>
+                            <span>{{ tour.duration_days }} дней</span>
+                        </div>
+                        <div class="tour-info-item">
+                            <span class="info-icon">👥</span>
+                            <span>До {{ tour.max_group_size }} чел.</span>
+                        </div>
+                    </div>
+                    <div class="tour-card-footer">
+                        <div class="tour-card-price">
+                            <span class="price-label">от</span>
+                            <span class="price-value">${{ tour.price }}</span>
+                            <span class="price-person">/ чел.</span>
+                        </div>
+                        <a href="{% url 'tour_detail' tour.id %}" class="btn btn-small">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <div class="empty-icon">🔍</div>
+                <h3>Туры не найдены</h3>
+                <p>Попробуйте изменить параметры фильтрации</p>
+                <a href="{% url 'tours' %}" class="btn btn-primary">Все туры</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/tours.js' %}"></script>
+{% endblock %}

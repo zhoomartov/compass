@@ -1,0 +1,260 @@
+/* Offers Intro */
+.offers-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 50px;
+}
+
+.intro-text {
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--text-light);
+}
+
+/* Offers Grid */
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 35px;
+}
+
+.offer-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.offer-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--secondary-color);
+}
+
+.offer-card-image {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+}
+
+.offer-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.offer-card:hover .offer-card-image img {
+    transform: scale(1.1);
+}
+
+.offer-card-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    font-size: 100px;
+}
+
+.offer-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: var(--shadow);
+}
+
+.offer-card-content {
+    padding: 30px;
+}
+
+.offer-card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.offer-card-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+}
+
+.offer-card-description {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.offer-features {
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: var(--bg-light);
+    border-radius: 8px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--text-dark);
+}
+
+.feature-item:last-child {
+    margin-bottom: 0;
+}
+
+.feature-icon {
+    color: #10b981;
+    font-weight: 700;
+}
+
+.offer-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 2px solid var(--border-color);
+}
+
+.offer-price {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.offer-price .price-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--primary-color);
+}
+
+.offer-price .price-person {
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+/* Benefits Grid */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.benefit-card {
+    text-align: center;
+    padding: 35px 25px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.benefit-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.benefit-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.benefit-text {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Newsletter Section */
+.newsletter-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+}
+
+.newsletter-content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.newsletter-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.newsletter-description {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 30px;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.newsletter-input {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.newsletter-input:focus {
+    outline: none;
+}
+
+.newsletter-form .btn {
+    white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .offers-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .newsletter-title {
+        font-size: 28px;
+    }
+    
+    .newsletter-description {
+        font-size: 16px;
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+    }
+}

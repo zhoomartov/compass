@@ -1,0 +1,781 @@
+{% extends 'site_app/base.html' %}
+{% load static %}
+
+{% block title %}Специальные предложения - Compass Travel{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* offers.css - СОВРЕМЕННЫЙ ДИЗАЙН СПЕЦПРЕДЛОЖЕНИЙ */
+
+/* ===== VARIABLES ===== */
+:root {
+    --offer-blue: #2563eb;
+    --offer-orange: #f97316;
+    --offer-gold: #f59e0b;
+    --offer-dark: #1e293b;
+    --offer-light: #64748b;
+    --offer-bg: #f8fafc;
+}
+
+/* ===== HEADER ===== */
+.page-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #f97316 100%);
+    padding: 120px 0 80px;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.2) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.page-title {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #ffffff, #f0f9ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-subtitle {
+    font-size: 1.5rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== OFFERS INTRO ===== */
+.offers-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+}
+
+.section-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: var(--offer-dark);
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--offer-blue), var(--offer-orange));
+    border-radius: 2px;
+}
+
+.intro-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--offer-light);
+    margin-bottom: 0;
+}
+
+/* ===== OFFERS GRID ===== */
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 2.5rem;
+    padding: 3rem 0;
+}
+
+.offer-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.offer-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--offer-blue), var(--offer-orange), var(--offer-gold));
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.offer-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(37, 99, 235, 0.2);
+}
+
+.offer-card:hover::before {
+    opacity: 1;
+}
+
+/* Card Image */
+.offer-card-image {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+}
+
+.offer-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.offer-card:hover .offer-card-image img {
+    transform: scale(1.15);
+}
+
+.offer-card-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--offer-blue), var(--offer-orange));
+    color: white;
+    gap: 1rem;
+}
+
+.offer-card-placeholder::before {
+    content: '🏔️';
+    font-size: 80px;
+}
+
+.offer-card-placeholder::after {
+    content: 'SPECIAL OFFER';
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* Badge */
+.offer-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(135deg, var(--offer-orange), #ea580c);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 800;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
+    z-index: 2;
+    animation: pulse 2s infinite;
+}
+
+/* Card Content */
+.offer-card-content {
+    padding: 2rem;
+}
+
+.offer-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.offer-location,
+.offer-duration {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--offer-light);
+    font-weight: 600;
+}
+
+.offer-card-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--offer-dark);
+    line-height: 1.3;
+}
+
+.offer-card-description {
+    color: var(--offer-light);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Features */
+.offer-features {
+    background: #f8fafc;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--offer-dark);
+    font-weight: 500;
+}
+
+.feature-item:last-child {
+    margin-bottom: 0;
+}
+
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+/* Card Footer */
+.offer-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.offer-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.price-label {
+    font-size: 0.875rem;
+    color: var(--offer-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--offer-blue);
+    line-height: 1;
+}
+
+.price-person {
+    font-size: 0.875rem;
+    color: var(--offer-light);
+    margin-left: 0.25rem;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    background: linear-gradient(90deg, var(--offer-blue), #3b82f6);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn:hover {
+    background: linear-gradient(90deg, #1e40af, var(--offer-blue));
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 5rem 2rem;
+    background: #f8fafc;
+    border-radius: 24px;
+    border: 3px dashed #cbd5e1;
+}
+
+.empty-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.empty-state h3 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--offer-dark);
+}
+
+.empty-state p {
+    color: var(--offer-light);
+    margin-bottom: 2rem;
+    font-size: 1.125rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, var(--offer-orange), #ea580c);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #ea580c, var(--offer-orange));
+    box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+}
+
+/* ===== BENEFITS ===== */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 3rem 0;
+}
+
+.benefit-card {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.benefit-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(37, 99, 235, 0.15);
+    border-color: rgba(59, 130, 246, 0.2);
+}
+
+.benefit-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    transition: transform 0.3s;
+}
+
+.benefit-card:hover .benefit-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.benefit-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--offer-dark);
+}
+
+.benefit-text {
+    color: var(--offer-light);
+    line-height: 1.6;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* ===== NEWSLETTER ===== */
+.newsletter-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, var(--offer-blue), #1e40af);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.newsletter-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+}
+
+.newsletter-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.newsletter-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #ffffff, #f0f9ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.newsletter-description {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.newsletter-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.newsletter-input:focus {
+    outline: none;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+/* ===== CTA ===== */
+.cta-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, var(--offer-orange), #ea580c);
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.cta-text {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.btn-large {
+    padding: 1.25rem 3rem;
+    font-size: 1.25rem;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 8px 30px rgba(249, 115, 22, 0.6);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .offers-grid {
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.5rem;
+    }
+
+    .page-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .offers-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .cta-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .offer-card-image {
+        height: 220px;
+    }
+
+    .offer-card-content {
+        padding: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .offer-card-footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: stretch;
+    }
+
+    .offer-price {
+        justify-content: center;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .newsletter-title {
+        font-size: 2rem;
+    }
+
+    .cta-title {
+        font-size: 1.75rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="page-header-overlay"></div>
+    <div class="container">
+        <h1 class="page-title">Специальные предложения</h1>
+        <p class="page-subtitle">Лучшие туры по выгодным ценам</p>
+    </div>
+</section>
+
+<!-- Offers Intro -->
+<section class="section">
+    <div class="container">
+        <div class="offers-intro">
+            <h2 class="section-title">Эксклюзивные предложения</h2>
+            <p class="intro-text">Мы подготовили для вас специальную подборку туров с максимальной выгодой. Не упустите возможность отправиться в путешествие мечты по привлекательной цене!</p>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Tours -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="offers-grid">
+            {% for tour in featured_tours %}
+            <div class="offer-card" data-tour-id="{{ tour.id }}">
+                <div class="offer-card-image">
+                    {% if tour.image_url %}
+                    <img src="{{ tour.image_url }}" alt="{{ tour.title }}" loading="lazy">
+                    {% else %}
+                    <div class="offer-card-placeholder">🏔️</div>
+                    {% endif %}
+                    <div class="offer-badge">⭐ Спецпредложение</div>
+                </div>
+                <div class="offer-card-content">
+                    <div class="offer-card-header">
+                        <span class="offer-location">📍 {{ tour.destination }}</span>
+                        <span class="offer-duration">⏱️ {{ tour.duration_days }} дней</span>
+                    </div>
+                    <h3 class="offer-card-title">{{ tour.title }}</h3>
+                    <p class="offer-card-description">{{ tour.description|truncatewords:25 }}</p>
+
+                    <div class="offer-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">✓</span>
+                            <span>Профессиональный гид</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">✓</span>
+                            <span>Все трансферы включены</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">✓</span>
+                            <span>Страховка</span>
+                        </div>
+                    </div>
+
+                    <div class="offer-card-footer">
+                        <div class="offer-price">
+                            <span class="price-label">от</span>
+                            <span class="price-value">${{ tour.price }}</span>
+                            <span class="price-person">/ чел.</span>
+                        </div>
+                        <a href="{% url 'tour_detail' tour.id %}" class="btn btn-primary">Забронировать</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <div class="empty-icon">🎁</div>
+                <h3>Специальные предложения появятся скоро</h3>
+                <p>Следите за обновлениями или подпишитесь на нашу рассылку</p>
+                <a href="{% url 'tours' %}" class="btn btn-primary">Все туры</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Benefits -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Преимущества наших спецпредложений</h2>
+        </div>
+
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">💰</div>
+                <h3 class="benefit-title">Выгодная цена</h3>
+                <p class="benefit-text">Скидки до 30% на избранные туры</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">🎯</div>
+                <h3 class="benefit-title">Гарантия качества</h3>
+                <p class="benefit-text">Те же высокие стандарты сервиса</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">📅</div>
+                <h3 class="benefit-title">Гибкие даты</h3>
+                <p class="benefit-text">Возможность выбора удобных дат</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">🔒</div>
+                <h3 class="benefit-title">Безопасность</h3>
+                <p class="benefit-text">Полная страховка и поддержка 24/7</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter-section">
+    <div class="container">
+        <div class="newsletter-content">
+            <div class="newsletter-text">
+                <h2 class="newsletter-title">Получайте эксклюзивные предложения</h2>
+                <p class="newsletter-description">Подпишитесь на рассылку и узнавайте первыми о специальных предложениях и скидках</p>
+            </div>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Ваш email" required>
+                <button type="submit" class="btn btn-primary">Подписаться</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="cta-title">Остались вопросы?</h2>
+            <p class="cta-text">Свяжитесь с нами, и наши эксперты помогут выбрать идеальный тур</p>
+            <a href="{% url 'contacts' %}" class="btn btn-primary btn-large">Связаться с нами</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/offers.js' %}"></script>
+{% endblock %}

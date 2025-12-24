@@ -1,0 +1,580 @@
+{% extends 'site_app/base.html' %}
+{% load static %}
+
+{% block title %}Блог - Compass Travel{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* blog.css - КРАТКИЙ И СТИЛЬНЫЙ */
+
+/* ===== VARIABLES ===== */
+:root {
+    --blog-blue: #2563eb;
+    --blog-orange: #f97316;
+    --blog-dark: #1e293b;
+    --blog-light: #64748b;
+    --blog-bg: #f8fafc;
+}
+
+/* ===== HEADER & SEARCH ===== */
+.page-header {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb, #f97316);
+    padding: 100px 0;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E");
+}
+
+.page-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #fff, #f0f9ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.page-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+}
+
+.search-section {
+    padding: 2rem 0;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.search-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 50px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--blog-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.search-button {
+    padding: 1rem 2rem;
+    background: linear-gradient(90deg, var(--blog-blue), #3b82f6);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.search-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+}
+
+/* ===== BLOG GRID ===== */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    padding: 3rem 0;
+}
+
+.blog-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.blog-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--blog-blue), var(--blog-orange));
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.blog-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(37, 99, 235, 0.15);
+}
+
+.blog-card:hover::before {
+    opacity: 1;
+}
+
+.blog-card-image {
+    height: 240px;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.blog-card:hover .blog-card-image img {
+    transform: scale(1.1);
+}
+
+.blog-card-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--blog-blue), var(--blog-orange));
+    font-size: 80px;
+    color: white;
+}
+
+.blog-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.blog-card-content {
+    padding: 1.5rem;
+}
+
+.blog-card-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 14px;
+    color: var(--blog-light);
+}
+
+.blog-card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.blog-card-title a {
+    color: var(--blog-dark);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.blog-card-title a:hover {
+    color: var(--blog-blue);
+}
+
+.blog-card-excerpt {
+    color: var(--blog-light);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.blog-read-more {
+    color: var(--blog-blue);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.3s;
+}
+
+.blog-read-more:hover {
+    gap: 12px;
+}
+
+/* ===== BLOG POST ===== */
+.post-article {
+    padding: 4rem 0;
+}
+
+.post-breadcrumb {
+    margin-bottom: 2rem;
+    font-size: 14px;
+    color: var(--blog-light);
+}
+
+.post-breadcrumb a {
+    color: var(--blog-blue);
+    text-decoration: none;
+}
+
+.post-breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.post-header {
+    margin-bottom: 3rem;
+}
+
+.post-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--blog-dark);
+}
+
+.post-meta {
+    display: flex;
+    gap: 2rem;
+    font-size: 1rem;
+    color: var(--blog-light);
+}
+
+.post-featured-image {
+    margin-bottom: 3rem;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.post-featured-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.post-content {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--blog-dark);
+}
+
+.post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.post-content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 3rem 0 1.5rem;
+    color: var(--blog-dark);
+}
+
+.post-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2rem 0 1rem;
+    color: var(--blog-dark);
+}
+
+.post-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e2e8f0;
+}
+
+.post-share {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.post-share span {
+    font-weight: 600;
+    color: var(--blog-dark);
+}
+
+.share-link {
+    padding: 0.5rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--blog-dark);
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.share-link:hover {
+    background: var(--blog-blue);
+    color: white;
+    border-color: var(--blog-blue);
+    transform: translateY(-2px);
+}
+
+/* ===== RELATED POSTS ===== */
+.related-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.related-post-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+}
+
+.related-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+}
+
+.related-post-image {
+    height: 180px;
+    overflow: hidden;
+}
+
+.related-post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+}
+
+.related-post-card:hover .related-post-image img {
+    transform: scale(1.1);
+}
+
+.related-post-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--blog-blue), var(--blog-orange));
+    font-size: 60px;
+    color: white;
+}
+
+.related-post-content {
+    padding: 1.5rem;
+}
+
+.related-post-date {
+    display: block;
+    font-size: 14px;
+    color: var(--blog-light);
+    margin-bottom: 0.5rem;
+}
+
+.related-post-title a {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--blog-dark);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.related-post-title a:hover {
+    color: var(--blog-blue);
+}
+
+/* ===== CTA ===== */
+.cta-section {
+    background: linear-gradient(135deg, var(--blog-blue), #1e40af);
+    color: white;
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.cta-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.cta-text {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: white;
+    color: var(--blog-blue);
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.btn-large {
+    padding: 1.25rem 3rem;
+    font-size: 1.125rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.5rem;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .post-title {
+        font-size: 2rem;
+    }
+
+    .post-content {
+        font-size: 1rem;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .related-posts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .post-title {
+        font-size: 1.75rem;
+    }
+
+    .post-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="page-header-overlay"></div>
+    <div class="container">
+        <h1 class="page-title">Блог путешественника</h1>
+        <p class="page-subtitle">Вдохновение, советы и истории о путешествиях</p>
+    </div>
+</section>
+
+<!-- Search Section -->
+<section class="search-section">
+    <div class="container">
+        <form method="get" class="search-form">
+            <input 
+                type="text" 
+                name="search" 
+                class="search-input" 
+                placeholder="Поиск статей..." 
+                value="{{ search_query }}"
+            >
+            <button type="submit" class="search-button">🔍 Найти</button>
+        </form>
+    </div>
+</section>
+
+<!-- Blog Posts -->
+<section class="section">
+    <div class="container">
+        {% if search_query %}
+        <div class="search-info">
+            <p>Результаты поиска для: <strong>"{{ search_query }}"</strong></p>
+            <a href="{% url 'blog' %}" class="clear-search">Сбросить фильтр</a>
+        </div>
+        {% endif %}
+        
+        <div class="blog-grid">
+            {% for post in posts %}
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    {% if post.image_url %}
+                    <img src="{{ post.image_url }}" alt="{{ post.title }}" loading="lazy">
+                    {% else %}
+                    <div class="blog-card-placeholder">📝</div>
+                    {% endif %}
+                    {% if post.featured %}
+                    <div class="blog-badge">⭐ Избранное</div>
+                    {% endif %}
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <span class="blog-date">📅 {{ post.created_at|date:"d M Y" }}</span>
+                        <span class="blog-author">✍️ {{ post.author }}</span>
+                    </div>
+                    <h3 class="blog-card-title">
+                        <a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a>
+                    </h3>
+                    <p class="blog-card-excerpt">{{ post.excerpt }}</p>
+                    <a href="{% url 'blog_post' post.slug %}" class="blog-read-more">
+                        Читать далее →
+                    </a>
+                </div>
+            </article>
+            {% empty %}
+            <div class="empty-state">
+                <div class="empty-icon">📝</div>
+                <h3>Статьи не найдены</h3>
+                <p>Попробуйте изменить параметры поиска</p>
+                <a href="{% url 'blog' %}" class="btn btn-primary">Все статьи</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="cta-title">Вдохновились?</h2>
+            <p class="cta-text">Пришло время превратить мечты в реальность</p>
+            <a href="{% url 'tours' %}" class="btn btn-primary btn-large">Выбрать тур</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/blog.js' %}"></script>
+{% endblock %}

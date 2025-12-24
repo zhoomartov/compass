@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}🧭 Compass Travel — Путешествия вашей мечты{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="compass-loader">
+            <div class="compass-outer"></div>
+            <div class="compass-inner">
+                <div class="compass-needle"></div>
+            </div>
+            <p>Прокладываем ваш маршрут...</p>
+        </div>
+    </div>
+
+    <!-- Floating Booking Button -->
+    <a href="{% url 'contacts' %}" class="floating-booking-btn pulse">
+        <i class="fas fa-suitcase-rolling"></i>
+        <span>Забронировать</span>
+    </a>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="{% url 'home' %}" class="logo">
+                        <div class="logo-icon">
+                            <div class="compass-logo">
+                                <i class="fas fa-compass"></i>
+                            </div>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-main">Compass Travel</span>
+                            <span class="logo-sub">Путешествия с душой</span>
+                        </div>
+                    </a>
+
+                    <!-- Desktop Navigation -->
+                    <ul class="nav-menu desktop-menu">
+                        <li><a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                            <i class="fas fa-home"></i>Главная</a>
+                        </li>
+                        <li><a href="{% url 'about' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                            <i class="fas fa-heart"></i>О нас</a>
+                        </li>
+                        <li><a href="{% url 'destinations' %}" class="nav-link {% if request.resolver_match.url_name == 'destinations' %}active{% endif %}">
+                            <i class="fas fa-map-marked-alt"></i>Все направления</a>
+                        </li>
+                        <li><a href="{% url 'tours' %}" class="nav-link {% if request.resolver_match.url_name == 'tours' or request.resolver_match.url_name == 'tour_detail' %}active{% endif %}">
+                            <i class="fas fa-route"></i>Туры</a>
+                        </li>
+                        <li><a href="{% url 'offers' %}" class="nav-link special-offer {% if request.resolver_match.url_name == 'offers' %}active{% endif %}">
+                            <i class="fas fa-fire"></i>Горящие туры</a>
+                        </li>
+                        <li><a href="{% url 'blog' %}" class="nav-link {% if request.resolver_match.url_name == 'blog' or request.resolver_match.url_name == 'blog_post' %}active{% endif %}">
+                            <i class="fas fa-blog"></i>Блог</a>
+                        </li>
+                        <li><a href="{% url 'contacts' %}" class="nav-link {% if request.resolver_match.url_name == 'contacts' %}active{% endif %}">
+                            <i class="fas fa-phone-alt"></i>Контакты</a>
+                        </li>
+                    </ul>
+
+
+
+                    <!-- Mobile Menu Toggle -->
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <div class="compass-logo">
+                    <i class="fas fa-compass"></i>
+                </div>
+                <button class="menu-close" id="menuClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="mobile-nav">
+                <li><a href="{% url 'home' %}" class="mobile-nav-link">
+                    <i class="fas fa-home"></i>Главная
+                </a></li>
+                <li><a href="{% url 'about' %}" class="mobile-nav-link">
+                    <i class="fas fa-heart"></i>О нас
+                </a></li>
+                <li><a href="{% url 'destinations' %}" class="mobile-nav-link">
+                    <i class="fas fa-map-marked-alt"></i>Направления
+                </a></li>
+                <li><a href="{% url 'tours' %}" class="mobile-nav-link">
+                    <i class="fas fa-route"></i>Туры
+                </a></li>
+                <li><a href="{% url 'offers' %}" class="mobile-nav-link special">
+                    <i class="fas fa-fire"></i>Горящие туры
+                    <span class="badge">🔥</span>
+                </a></li>
+                <li><a href="{% url 'blog' %}" class="mobile-nav-link">
+                    <i class="fas fa-blog"></i>Блог
+                </a></li>
+                <li><a href="{% url 'contacts' %}" class="mobile-nav-link">
+                    <i class="fas fa-phone-alt"></i>Контакты
+                </a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <a href="tel:+996700123456" class="btn-call">
+                    <i class="fas fa-phone"></i>Позвонить нам
+                </a>
+                <a href="#booking" class="btn-primary btn-block">
+                    <i class="fas fa-suitcase-rolling"></i>Начать путешествие
+                </a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+        <div class="message message-{{ message.tags }}">
+            <div class="message-icon">
+                {% if message.tags == 'success' %}<i class="fas fa-check-circle"></i>
+                {% elif message.tags == 'error' %}<i class="fas fa-exclamation-circle"></i>
+                {% elif message.tags == 'warning' %}<i class="fas fa-exclamation-triangle"></i>
+                {% else %}<i class="fas fa-info-circle"></i>{% endif %}
+            </div>
+            <div class="message-content">
+                <strong>{{ message.tags|title }}</strong>
+                <p>{{ message }}</p>
+            </div>
+            <button class="message-close">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block hero %}{% endblock %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="compass-logo">
+                            <i class="fas fa-compass"></i>
+                        </div>
+                        <div>
+                            <h3>Compass Travel</h3>
+                            <p>Путешествия, которые меняют жизнь</p>
+                        </div>
+                    </div>
+                    <p class="footer-slogan">Мы открываем для вас самые красивые уголки планеты. Каждое путешествие — это история, которую вы будете рассказывать всю жизнь.</p>
+                    <div class="footer-newsletter">
+                        <h4>Узнавайте о скидках первыми</h4>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Ваш email" required>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="footer-links-grid">
+                    <div class="footer-column">
+                        <h4>Навигация</h4>
+                        <ul>
+                            <li><a href="{% url 'home' %}">Главная</a></li>
+                            <li><a href="{% url 'about' %}">О компании</a></li>
+                            <li><a href="{% url 'tours' %}">Все туры</a></li>
+                            <li><a href="{% url 'offers' %}">Спецпредложения</a></li>
+                            <li><a href="{% url 'blog' %}">Блог путешествий</a></li>
+                            <li><a href="{% url 'contacts' %}">Контакты</a></li>
+                        </ul>
+                    </div>
+
+
+                    <div class="footer-column">
+                        <h4>Контакты</h4>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong>Адрес офиса</strong>
+                                    <p>г. Бишкек, ул. Турусбекова, 255</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong>Телефон</strong>
+                                    <p>+996 703 408 966</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong>Email</strong>
+                                    <p>nellydanilovna@compasstravel.kg</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <strong>Часы работы</strong>
+                                    <p>Пн-Пт: 9:00-19:00<br>Сб: 10:00-16:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="https://instagram.com/nelli_eje" class="social-link" aria-label="Instagram" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://facebook.com/nelli_eje" class="social-link" aria-label="Facebook" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://t.me/nelli_eje" class="social-link" aria-label="Telegram" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="https://youtube.com/@nelli_eje" class="social-link" aria-label="YouTube" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@nelli_eje" class="social-link" aria-label="TikTok" target="_blank">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://wa.me/+996703408966?text=Здравствуйте!%20Хочу%20узнать%20подробнее"
+                       class="social-link"
+                       aria-label="WhatsApp"
+                       target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+
+
+                <div class="footer-payments">
+                    <span>Принимаем к оплате:</span>
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                    <i class="fas fa-credit-card"></i>
+                </div>
+
+                <div class="footer-copyright">
+                    <p>Compass Travel.</p>
+                    <p>Создано с <i class="fas fa-heart"></i> для путешественников</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Quick Contact Widget -->
+    <div class="quick-contact">
+        <a href="tel:+996703408966" class="quick-contact-btn phone">
+            <i class="fas fa-phone"></i>
+        </a>
+        <a href="https://wa.me/996703408966" class="quick-contact-btn whatsapp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="tg://+996703408966" class="quick-contact-btn telegram">
+            <i class="fab fa-telegram"></i>
+        </a>
+    </div>
+
+    <script src="{% static 'js/base.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

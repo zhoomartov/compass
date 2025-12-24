@@ -1,0 +1,1662 @@
+{% extends 'site_app/base.html' %}
+{% load static %}
+
+{% block title %}О нас - Compass Travel{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* about.css */
+
+/* ===== VARIABLES ===== */
+:root {
+    --about-blue: #1e40af;
+    --about-sky: #3b82f6;
+    --about-light-blue: #60a5fa;
+    --about-orange: #f97316;
+    --about-gold: #f59e0b;
+    --about-sunset: #fb923c;
+
+    --about-dark: #0f172a;
+    --about-text: #334155;
+    --about-light: #64748b;
+    --about-lighter: #94a3b8;
+    --about-bg: #f8fafc;
+    --about-white: #ffffff;
+    --about-border: #e2e8f0;
+
+    --gradient-hero: linear-gradient(135deg,
+        rgba(30, 58, 138, 0.9) 0%,
+        rgba(37, 99, 235, 0.8) 50%,
+        rgba(249, 115, 22, 0.7) 100%);
+    --gradient-text: linear-gradient(90deg, #1e40af, #3b82f6, #f97316);
+
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+    --shadow-hard: 0 15px 50px rgba(0, 0, 0, 0.2);
+
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 30px;
+    --radius-xl: 40px;
+    --radius-full: 9999px;
+}
+
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--about-bg);
+    color: var(--about-text);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ===== HERO SECTION ===== */
+.about-hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background: var(--gradient-hero);
+    overflow: hidden;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.2) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom,
+        rgba(15, 23, 42, 0.3),
+        rgba(30, 58, 138, 0.5));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.hero-text {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.title-gradient {
+    display: block;
+    background: linear-gradient(90deg, #ffffff, #f0f9ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.title-main {
+    display: block;
+    font-size: 0.8em;
+    opacity: 0.95;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    opacity: 0.9;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    z-index: 2;
+    animation: fadeIn 1s ease-out 1s both;
+}
+
+.scroll-text {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.scroll-arrow {
+    font-size: 1.5rem;
+    animation: bounce 2s infinite;
+}
+
+/* ===== ABOUT STORY ===== */
+.about-story {
+    padding: 100px 0;
+    background: var(--about-white);
+}
+
+.story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--about-sky);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.label-icon {
+    font-size: 16px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    color: var(--about-dark);
+}
+
+.title-line {
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--gradient-text);
+    margin-top: 15px;
+    border-radius: 2px;
+}
+
+.story-text {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--about-light);
+}
+
+.lead {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--about-text);
+    margin-bottom: 30px;
+}
+
+.story-highlights {
+    margin: 40px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.highlight-item {
+    position: relative;
+    padding-left: 20px;
+}
+
+.highlight-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    background: var(--about-orange);
+    border-radius: 50%;
+}
+
+.highlight-year {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--about-blue);
+    margin-bottom: 5px;
+}
+
+.highlight-text {
+    font-size: 0.95rem;
+    color: var(--about-light);
+}
+
+.story-visual {
+    position: relative;
+    height: 500px;
+}
+
+.visual-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.world-map {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 2px solid rgba(59, 130, 246, 0.2);
+}
+
+.map-point {
+    position: absolute;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.map-point:hover {
+    transform: scale(1.2);
+}
+
+.point-marker {
+    font-size: 24px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.point-label {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: var(--shadow-soft);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.map-point:hover .point-label {
+    opacity: 1;
+}
+
+.visual-stats {
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+}
+
+.stat-circle {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, var(--about-sky), var(--about-orange));
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: var(--shadow-hard);
+    animation: float 3s ease-in-out infinite;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.stat-text {
+    font-size: 0.875rem;
+    opacity: 0.9;
+}
+
+/* ===== MISSION SECTION ===== */
+.mission-section {
+    padding: 100px 0;
+    background: linear-gradient(to bottom, var(--about-bg), #ffffff);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.title-sub {
+    display: block;
+    font-size: 1.25rem;
+    color: var(--about-light);
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+.mission-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.mission-card {
+    background: var(--about-white);
+    border-radius: var(--radius-lg);
+    padding: 40px 30px;
+    box-shadow: var(--shadow-medium);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.mission-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--gradient-text);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.mission-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hard);
+}
+
+.mission-card:hover::before {
+    transform: scaleX(1);
+}
+
+.mission-card-inner {
+    position: relative;
+    z-index: 2;
+}
+
+.mission-icon-wrapper {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(249, 115, 22, 0.1));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.mission-card:hover .icon-circle {
+    transform: rotate(360deg);
+}
+
+.mission-icon {
+    font-size: 36px;
+}
+
+.icon-glow {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border: 2px solid rgba(59, 130, 246, 0.3);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.mission-content {
+    text-align: center;
+}
+
+.mission-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--about-dark);
+}
+
+.mission-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--about-light);
+    margin-bottom: 20px;
+}
+
+.values-list {
+    list-style: none;
+    text-align: left;
+    margin: 20px 0;
+}
+
+.values-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: var(--about-light);
+}
+
+.value-icon {
+    color: #10b981;
+    font-weight: bold;
+}
+
+.mission-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.feature-tag {
+    padding: 6px 12px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--about-sky);
+}
+
+.mission-quote {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(226, 232, 240, 0.5);
+    font-style: italic;
+    color: var(--about-light);
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* ===== TEAM SECTION ===== */
+.team-section {
+    padding: 100px 0;
+    background: var(--about-white);
+}
+
+.section-subtitle {
+    font-size: 1.125rem;
+    color: var(--about-light);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.team-member {
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+}
+
+.member-card {
+    background: var(--about-bg);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.team-member:hover .member-card {
+    box-shadow: var(--shadow-medium);
+}
+
+.member-photo {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.photo-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    background: linear-gradient(135deg, var(--about-sky), var(--about-orange));
+    color: white;
+}
+
+.photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+}
+
+.team-member:hover .photo-overlay {
+    opacity: 1;
+}
+
+.overlay-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.experience-badge {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--about-dark);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.social-links {
+    display: flex;
+    gap: 8px;
+}
+
+.social-icon {
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+.member-country-flags {
+    position: absolute;
+    bottom: -15px;
+    left: 20px;
+    display: flex;
+    gap: 5px;
+}
+
+.flag {
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    box-shadow: var(--shadow-soft);
+    border: 2px solid var(--about-white);
+}
+
+.flag:not(:first-child) {
+    margin-left: -10px;
+}
+
+.member-info {
+    padding: 30px;
+}
+
+.member-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.member-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--about-dark);
+    margin: 0;
+}
+
+.member-badge {
+    padding: 4px 12px;
+    background: linear-gradient(135deg, var(--about-sky), var(--about-blue));
+    color: white;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.member-position {
+    font-size: 0.95rem;
+    color: var(--about-sky);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.member-bio {
+    font-size: 0.95rem;
+    color: var(--about-light);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.member-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px 0;
+    padding: 15px 0;
+    border-top: 1px solid rgba(226, 232, 240, 0.5);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--about-orange);
+    line-height: 1;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--about-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+.member-expertise {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.expertise-tag {
+    padding: 4px 12px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--about-sky);
+}
+
+/* ===== STATISTICS SECTION ===== */
+.stats-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--about-dark), #1e293b);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.stats-background {
+    position: relative;
+    z-index: 2;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-circle {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    line-height: 1;
+}
+
+.stat-plus {
+    font-size: 1.5rem;
+    color: var(--about-orange);
+    font-weight: 800;
+    margin-left: 2px;
+}
+
+.stat-content {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.stat-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.stat-description {
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+/* ===== TESTIMONIALS ===== */
+.testimonials-section {
+    padding: 100px 0;
+    background: var(--about-bg);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.testimonial-card {
+    background: var(--about-white);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.testimonial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.reviewer-avatar {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--about-sky), var(--about-orange));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.reviewer-details {
+    flex: 1;
+}
+
+.reviewer-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--about-dark);
+    margin-bottom: 4px;
+}
+
+.reviewer-tour {
+    font-size: 0.875rem;
+    color: var(--about-light);
+}
+
+.review-rating {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.star {
+    color: #e2e8f0;
+    font-size: 18px;
+}
+
+.star.filled {
+    color: #f59e0b;
+}
+
+.rating-value {
+    font-weight: 600;
+    color: var(--about-dark);
+    margin-left: 8px;
+}
+
+.testimonial-body {
+    margin-bottom: 25px;
+}
+
+.testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--about-light);
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.testimonial-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.highlight {
+    padding: 4px 12px;
+    background: rgba(16, 185, 129, 0.1);
+    color: #065f46;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.testimonial-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(226, 232, 240, 0.5);
+    font-size: 0.875rem;
+    color: var(--about-light);
+}
+
+.photo-count, .review-date {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.date-icon {
+    font-size: 16px;
+}
+
+/* ===== JOIN SECTION ===== */
+.join-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--about-blue), #1e3a8a);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.join-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.join-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.join-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.join-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.join-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 1.125rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, var(--about-sky), var(--about-blue));
+    color: white;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, var(--about-blue), var(--about-sky));
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6);
+}
+
+.btn-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    transform: translateY(-3px);
+}
+
+.btn-large {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.25rem;
+    min-width: 200px;
+}
+
+.btn-icon {
+    font-size: 1.25rem;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
+    }
+    40% {
+        transform: translateY(-10px) translateX(-50%);
+    }
+    60% {
+        transform: translateY(-5px) translateX(-50%);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+}
+
+@keyframes pulseGlow {
+    from {
+        box-shadow: 0 0 0 rgba(59, 130, 246, 0.4);
+    }
+    to {
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeInUp 1s ease-out;
+}
+
+.animate-fade-in-delay {
+    animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.animate-fade-in-delay-2 {
+    animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+    .story-grid,
+    .mission-cards,
+    .team-grid,
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .story-highlights {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .about-hero {
+        min-height: 60vh;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .hero-cta,
+    .join-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .story-visual {
+        height: 400px;
+    }
+
+    .member-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .join-title {
+        font-size: 2.5rem;
+    }
+
+    .stat-circle {
+        width: 100px;
+        height: 100px;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .mission-card,
+    .testimonial-card {
+        padding: 25px 20px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="about-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="container">
+            <div class="hero-text">
+                <h1 class="hero-title animate-fade-in">
+                    <span class="title-gradient">Мы — проводники</span>
+                    <span class="title-main">в мир приключений</span>
+                </h1>
+                <p class="hero-subtitle animate-fade-in-delay">
+                    С 2009 года создаем незабываемые путешествия, которые меняют жизнь
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Story -->
+<section id="our-story" class="about-story">
+    <div class="container">
+        <div class="story-grid">
+            <div class="story-content">
+                <div class="section-label">
+                    Наша история
+                </div>
+                <h2 class="section-title">
+                    От мечты к реальности
+                    <span class="title-line"></span>
+                </h2>
+
+                <div class="story-text">
+                    <p class="lead">
+                        Compass Travel начинался как идея двух друзей, которые верили, что путешествия должны быть доступными, безопасными и незабываемыми.
+                    </p>
+
+                    <div class="story-highlights">
+                        <div class="highlight-item">
+                            <span class="highlight-year">2009</span>
+                            <p class="highlight-text">Основание компании двумя энтузиастами путешествий</p>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-year">2015</span>
+                            <p class="highlight-text">Расширение до 50 направлений по всему миру</p>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-year">2020</span>
+                            <p class="highlight-text">Запуск индивидуальных туров премиум-класса</p>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-year">2024</span>
+                            <p class="highlight-text">Более 5000 довольных клиентов и 87 стран в портфолио</p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Сегодня мы — команда профессиональных путешественников, гидов и организаторов, объединенных общей миссией: открывать мир для тех, кто мечтает о приключениях.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission & Values -->
+<section class="mission-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                Наши принципы
+                <span class="title-sub">Что нас отличает</span>
+            </h2>
+        </div>
+
+        <div class="mission-cards">
+            <!-- Mission Card 1 -->
+            <div class="mission-card">
+                <div class="mission-card-inner">
+                    <div class="mission-icon-wrapper">
+                        <div class="icon-glow"></div>
+                    </div>
+
+                    <div class="mission-content">
+                        <h3 class="mission-title">Наша миссия</h3>
+                        <p class="mission-text">
+                            Создавать доступные, безопасные и вдохновляющие путешествия, которые открывают новые горизонты и оставляют незабываемые воспоминания.
+                        </p>
+
+                        <div class="mission-features">
+                            <span class="feature-tag">Доступность</span>
+                            <span class="feature-tag">Безопасность</span>
+                            <span class="feature-tag">Вдохновение</span>
+                        </div>
+                    </div>
+
+                    <div class="mission-quote">
+                        <p>"Путешествие — лучший способ инвестировать в себя"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission Card 2 -->
+            <div class="mission-card">
+                <div class="mission-card-inner">
+                    <div class="mission-icon-wrapper">
+                        <div class="icon-glow"></div>
+                    </div>
+
+                    <div class="mission-content">
+                        <h3 class="mission-title">Наше видение</h3>
+                        <p class="mission-text">
+                            Стать мировым лидером в создании уникальных путешествий, где каждый клиент чувствует себя первооткрывателем новых земель и культур.
+                        </p>
+
+                        <div class="mission-features">
+                            <span class="feature-tag">Лидерство</span>
+                            <span class="feature-tag">Инновации</span>
+                            <span class="feature-tag">Уникальность</span>
+                        </div>
+                    </div>
+
+                    <div class="mission-quote">
+                        <p>"Мы не продаем туры — мы создаем истории"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission Card 3 -->
+            <div class="mission-card">
+                <div class="mission-card-inner">
+                    <div class="mission-icon-wrapper">
+                        <div class="icon-glow"></div>
+                    </div>
+
+                    <div class="mission-content">
+                        <h3 class="mission-title">Наши ценности</h3>
+                        <ul class="values-list">
+                            <li>
+                                <span class="value-icon">✓</span>
+                                <span class="value-text">Честность и прозрачность</span>
+                            </li>
+                            <li>
+                                <span class="value-icon">✓</span>
+                                <span class="value-text">Качество и внимание к деталям</span>
+                            </li>
+                            <li>
+                                <span class="value-icon">✓</span>
+                                <span class="value-text">Индивидуальный подход к каждому</span>
+                            </li>
+                            <li>
+                                <span class="value-icon">✓</span>
+                                <span class="value-text">Уважение к природе и культурам</span>
+                            </li>
+                        </ul>
+
+                        <div class="mission-features">
+                            <span class="feature-tag">Качество</span>
+                            <span class="feature-tag">Ответственность</span>
+                            <span class="feature-tag">Забота</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section id="team" class="team-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                Команда мечты
+                <span class="title-sub">Профессионалы, создающие ваши приключения</span>
+            </h2>
+            <p class="section-subtitle">
+                Наша команда — это сердце Compass Travel. Каждый из нас не только профессионал, но и страстный путешественник.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-background">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-circle">
+                        <span class="stat-number" data-count="15">data-count</span>
+                        <span class="stat-plus">+</span>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-title">Лет опыта</h3>
+                        <p class="stat-description">Успешной работы с 2009 года</p>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-circle">
+                        <span class="stat-number" data-count="5000">data-count</span>
+                        <span class="stat-plus">+</span>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-title">Довольных клиентов</h3>
+                        <p class="stat-description">Путешественников по всему миру</p>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-circle">
+                        <span class="stat-number" data-count="87">data-count</span>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-title">Стран мира</h3>
+                        <p class="stat-description">В нашем портфолио</p>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-circle">
+                        <span class="stat-number" data-count="250">data-count</span>
+                        <span class="stat-plus">+</span>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-title">Уникальных туров</h3>
+                        <p class="stat-description">От классики до эксклюзива</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                Истории путешествий
+                <span class="title-sub">Что говорят наши клиенты</span>
+            </h2>
+        </div>
+
+        <div class="testimonials-grid">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="reviewer-info">
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Анна Смирнова</h4>
+                            <p class="reviewer-tour">Тур в Непал, 2024</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="rating-value">5.0</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-body">
+                    <p class="testimonial-text">
+                        "Непал был моей мечтой 10 лет, и Compass Travel сделал эту мечту реальностью! Организация на высшем уровне: от встречи в аэропорту до восхождения в базовый лагерь Эвереста. Особенно впечатлили гиды — настоящие профессионалы с огромным опытом."
+                    </p>
+
+                    <div class="testimonial-highlights">
+                        <span class="highlight">Восхождение</span>
+                        <span class="highlight">Культура</span>
+                        <span class="highlight">Гиды</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-footer">
+                    <div class="review-photos">
+                        <span class="photo-count">📸 24 фото</span>
+                    </div>
+                    <div class="review-date">
+                        <span class="date-icon">📅</span>
+                        Март 2024
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="reviewer-info">
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Игорь Васильев</h4>
+                            <p class="reviewer-tour">Тур в Грузию, 2024</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star">★</span>
+                        <span class="rating-value">4.8</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-body">
+                    <p class="testimonial-text">
+                        "Путешествие в Грузию стало настоящим открытием! Отличная организация, комфортные отели и потрясающая гастрономическая программа. Отдельное спасибо за индивидуальный подход — учли все наши пожелания по вину и сыру!"
+                    </p>
+
+                    <div class="testimonial-highlights">
+                        <span class="highlight">Виноделие</span>
+                        <span class="highlight">Кухня</span>
+                        <span class="highlight">Гостеприимство</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-footer">
+                    <div class="review-photos">
+                        <span class="photo-count">📸 18 фото</span>
+                    </div>
+                    <div class="review-date">
+                        <span class="date-icon">📅</span>
+                        Февраль 2024
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="reviewer-info">
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Ольга и Сергей</h4>
+                            <p class="reviewer-tour">Тур на Алтай, 2023</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="rating-value">5.0</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-body">
+                    <p class="testimonial-text">
+                        "Алтай превзошел все ожидания! Невероятная природа, чистый воздух и идеальная организация. Особенно понравились конные прогулки и ночевка в палатках у горного озера. Обязательно вернемся снова — теперь мечтаем о зимнем Алтае!"
+                    </p>
+
+                    <div class="testimonial-highlights">
+                        <span class="highlight">Природа</span>
+                        <span class="highlight">Активный отдых</span>
+                        <span class="highlight">Романтика</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-footer">
+                    <div class="review-photos">
+                        <span class="photo-count">📸 32 фото</span>
+                    </div>
+                    <div class="review-date">
+                        <span class="date-icon">📅</span>
+                        Июль 2023
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Join CTA -->
+<section class="join-section">
+    <div class="container">
+        <div class="join-content">
+            <div class="join-text">
+                <h2 class="join-title">
+                    Станьте частью<br>
+                    <span class="title-gradient">нашего сообщества</span>
+                </h2>
+                <p class="join-subtitle">
+                    Присоединяйтесь к тысячам путешественников, которые уже открыли мир с Compass Travel
+                </p>
+            </div>
+
+            <div class="join-actions">
+                <a href="{% url 'tours' %}" class="btn btn-primary btn-large">
+                    <span class="btn-icon">✈️</span>
+                    Найти своё приключение
+                </a>
+                <a href="{% url 'contacts' %}" class="btn btn-outline btn-large">
+                    <span class="btn-icon">💬</span>
+                    Задать вопрос
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/about.js' %}"></script>
+{% endblock %}
